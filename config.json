@@ -1,0 +1,11 @@
+{
+	"roms": {
+		"path": "/roms"
+	},
+	"views": {
+		"path": "./views"
+	},
+	"app":{
+		"port": 8080
+	}
+}

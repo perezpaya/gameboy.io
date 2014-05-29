@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Gameboy.io</title>
+	<script src="/socket.io/socket.io.js"></script>
+	<script>
+
+		var socket = io();
+		socket.on('command', function (key){
+			console.log(key);
+		});
+
+		socket.on('picture', function (base64){
+			document.getElementById('screen').src = 'data:image/png;base64,' + base64;
+		});
+
+		var map = {
+		  37: 'left',
+		  39: 'right',
+		  65: 'a',
+		  83: 'b',
+		  66: 'b',
+		  38: 'up',
+		  40: 'down',
+		  79: 'select',
+		  13: 'start'
+		};
+
+		document.onkeydown = function(ev){
+			var code = ev.keyCode;
+			if (map[code]) {
+				ev.preventDefault();
+				socket.emit('command', map[code]);
+			}
+		}
+
+	</script>
+</head>
+<body>
+	<img height="400" id="screen" />
+</body>
+</html>
